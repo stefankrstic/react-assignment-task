@@ -1,20 +1,22 @@
 {
-  "name": "react-assignment-task",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.3"
-  },
-  "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.0.3"
-  }
+    "name": "react-assignment-task",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --write ."
+    },
+    "dependencies": {
+        "next": "14.0.3",
+        "prettier": "^3.1.0",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "eslint": "^8",
+        "eslint-config-next": "14.0.3"
+    }
 }
