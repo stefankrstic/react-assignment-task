@@ -3,11 +3,9 @@ import Head from "next/head";
 import { DataGrid } from "@mui/x-data-grid";
 import { Typography, Fab } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { useState } from "react";
 import Link from "next/link";
 
 export default function Home({ roles }) {
-    const [showCreateForm, setShowCreateForm] = useState(false);
     return (
         <>
             <Head>
@@ -46,11 +44,7 @@ export default function Home({ roles }) {
                 />
 
                 <Link href="/roles/create">
-                    <Fab
-                        sx={{ position: "fixed", right: 16, bottom: 16 }}
-                        color="primary"
-                        onClick={() => setShowCreateForm(true)}
-                    >
+                    <Fab sx={{ position: "fixed", right: 16, bottom: 16 }} color="primary">
                         <Add />
                     </Fab>
                 </Link>
