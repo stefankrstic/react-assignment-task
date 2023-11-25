@@ -1,4 +1,4 @@
-const roles = {
+export const roles = {
     Developer: {
         id: 1,
         name: "Developer",
@@ -16,7 +16,3 @@ const roles = {
             "Engages in selling products or services, cultivating relationships with clients, and meeting sales targets.",
     },
 };
-
-export default function handler(req, res) {
-    res.status(200).json(roles);
-}

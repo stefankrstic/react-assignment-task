@@ -1,10 +1,11 @@
 "use client";
 
+import { api } from "@/api";
 import { Typography } from "@mui/material";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
 
-export default function Create() {
+export default function Edits({ role }) {
     const router = useRouter();
     function handleSubmit(role) {
         console.log(role); //TODO
@@ -12,9 +13,14 @@ export default function Create() {
     return (
         <div>
             <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Roles &raquo; Create
+                Roles &raquo; Edit
             </Typography>
-            <RoleForm onSubmit={handleSubmit} onCancel={() => router.push("/roles")} />
+            <RoleForm initialState={role} onSubmit={handleSubmit} onCancel={() => router.push("/roles")} />
         </div>
     );
 }
+
+export const getServerSideProps = async (context) => {
+    const { data } = await api.get(`/roles/${context.query.id}`);
+    return { props: { role: data } };
+};

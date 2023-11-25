@@ -1,7 +1,7 @@
 import { api } from "@/api";
 import Head from "next/head";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography, Fab } from "@mui/material";
+import { Typography, Fab, Box, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Link from "next/link";
 
@@ -26,6 +26,7 @@ export default function Home({ roles }) {
                             sortModel: [{ field: "name", sort: "asc" }],
                         },
                     }}
+                    // autosizeOptions={{ columns: ["description"] }}
                     columns={[
                         {
                             field: "id",
@@ -38,7 +39,18 @@ export default function Home({ roles }) {
                         {
                             field: "description",
                             headerName: "Description",
-                            width: 500,
+                            width: 1000,
+                        },
+                        {
+                            field: "actions",
+                            headerName: "",
+                            renderCell: ({ id }) => (
+                                <Box>
+                                    <Link href={`/roles/${id}/edit`}>
+                                        <Button>Edit</Button>
+                                    </Link>
+                                </Box>
+                            ),
                         },
                     ]}
                 />
