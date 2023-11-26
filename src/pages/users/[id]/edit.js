@@ -1,8 +1,8 @@
 "use client";
 
 import { getUser, saveUser } from "@/api";
+import { Header } from "@/components/common/Header";
 import { UserForm } from "@/components/users/UserForm";
-import { Typography } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -38,10 +38,7 @@ export default function Edit({ user }) {
 
     return (
         <div>
-            <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Users &raquo; Edit
-            </Typography>
-
+            <Header>Users &raquo; Edit</Header>
             <UserForm initialState={user} onSubmit={handleSubmit} onCancel={() => router.push("/users")} />
         </div>
     );

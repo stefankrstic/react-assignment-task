@@ -1,7 +1,8 @@
 import { getUsers } from "@/api";
 import Head from "next/head";
+import { Header } from "@/components/common/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { Typography, Fab, Box, Button } from "@mui/material";
+import { Fab, Box, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -25,9 +26,7 @@ export default function Home({ users }) {
             </Head>
 
             <main>
-                <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                    Users
-                </Typography>
+                <Header>Users</Header>
                 <DataGrid
                     rows={data}
                     initialState={{

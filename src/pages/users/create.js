@@ -1,8 +1,8 @@
 "use client";
 
 import { getRoles, saveUser } from "@/api";
+import { Header } from "@/components/common/Header";
 import { UserForm } from "@/components/users/UserForm";
-import { Typography } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { v4 } from "uuid";
@@ -42,10 +42,7 @@ export default function Create() {
 
     return (
         <div>
-            <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Users &raquo; Create
-            </Typography>
-
+            <Header>Users &raquo; Create</Header>
             <UserForm onSubmit={handleSubmit} onCancel={() => router.push("/users")} />
         </div>
     );

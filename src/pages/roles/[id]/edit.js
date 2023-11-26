@@ -1,7 +1,7 @@
 "use client";
 
 import { getRole, saveRole } from "@/api";
-import { Typography } from "@mui/material";
+import { Header } from "@/components/common/Header";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -37,9 +37,7 @@ export default function Edits({ role }) {
     }
     return (
         <div>
-            <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Roles &raquo; Edit
-            </Typography>
+            <Header>Roles &raquo; Edit</Header>
             <RoleForm initialState={role} onSubmit={handleSubmit} onCancel={() => router.push("/roles")} />
         </div>
     );

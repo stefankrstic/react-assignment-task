@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Header } from "@/components/common/Header";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
 import { saveRole } from "@/api";
@@ -33,9 +33,7 @@ export default function Create() {
     }
     return (
         <div>
-            <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Roles &raquo; Create
-            </Typography>
+            <Header>Roles &raquo; Create</Header>
             <RoleForm onSubmit={handleSubmit} onCancel={() => router.push("/roles")} />
         </div>
     );
