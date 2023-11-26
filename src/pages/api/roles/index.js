@@ -1,15 +1,16 @@
-import { roles } from "@/data/roles";
+import { db } from "@/db";
 import { v4 } from "uuid";
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+    const roles = (await db.get("roles")) ?? [];
+
     if (req.method === "GET") {
-        res.status(200).json(Object.values(roles));
+        res.status(200).json(roles);
     } else if (req.method === "POST") {
-        setTimeout(() => {
-            // Simulate role creation in DB
+        setTimeout(async () => {
             const newRole = { ...req.body, id: v4() };
-            roles[req.body.name] = newRole;
-            return res.status(200).json(newRole);
+            await db.put("roles", [...roles, newRole]);
+            res.status(200).json(newRole);
         }, 2000);
     }
 }

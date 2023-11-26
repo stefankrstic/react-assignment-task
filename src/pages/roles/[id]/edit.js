@@ -1,6 +1,6 @@
 "use client";
 
-import { api, updateRole, getRole } from "@/api";
+import { updateRole, getRole } from "@/api";
 import { Typography } from "@mui/material";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
