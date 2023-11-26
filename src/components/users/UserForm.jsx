@@ -12,13 +12,14 @@ const UserSchema = object({
     role: string().required(),
 });
 
-export function UserForm({ initialState, onSubmit, onCancel }) {
+export function UserForm({ initialState = { role: "" }, onSubmit, onCancel }) {
     const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: getRoles });
 
     const {
         register,
         handleSubmit,
-        formState: { errors, ...rest },
+        formState: { errors },
+        watch,
     } = useForm({ defaultValues: initialState, resolver: yupResolver(UserSchema) });
 
     return (
@@ -54,7 +55,7 @@ export function UserForm({ initialState, onSubmit, onCancel }) {
                 <FormControl error={!!errors.role}>
                     <InputLabel id="roleLabel">Role</InputLabel>
 
-                    <Select labelId="roleLabel" id="role" label="Role" {...register("role")}>
+                    <Select labelId="roleLabel" id="role" label="Role" {...register("role")} value={watch("role")}>
                         {roles.map((role) => (
                             <MenuItem key={role.id} value={role.id}>
                                 {role.name}
