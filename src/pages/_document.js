@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import { Layout } from "@/components/common/Layout";
 import { CssBaseline } from "@mui/material";
 import { Html, Head, Main, NextScript } from "next/document";
 
