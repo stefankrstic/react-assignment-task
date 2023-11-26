@@ -1,41 +1,52 @@
 "use client";
 
+import { getRoles, saveUser } from "@/api";
+import { UserForm } from "@/components/users/UserForm";
 import { Typography } from "@mui/material";
-import { RoleForm } from "@/components/roles/RoleForm";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { createRole } from "@/api";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { v4 } from "uuid";
 
 export default function Create() {
     const router = useRouter();
     const queryClient = useQueryClient();
+    const { data: roles = [] } = useQuery({ queryKey: ["roles"], queryFn: getRoles });
 
     const { mutate } = useMutation({
-        mutationFn: createRole,
-        onMutate: async (newRole) => {
-            const state = queryClient.getQueryData(["roles"]);
-            queryClient.setQueryData(["roles"], (state) => [...state, newRole]);
+        mutationFn: saveUser,
+        onMutate: async (userInput) => {
+            const state = queryClient.getQueryData(["users"]);
+
+            const tempUser = {
+                ...userInput,
+                id: v4(),
+                role: roles.find((role) => role.id === userInput.role),
+                createdAt: new Date().toISOString(),
+            };
+
+            queryClient.setQueryData(["users"], (state) => [...state, tempUser]);
             return { state };
         },
-        onError: (error, newRole, { state }) => {
-            queryClient.setQueryData(["roles"], state);
+        onError: (error, userInput, { state }) => {
+            queryClient.setQueryData(["users"], state);
         },
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ["roles"] });
+            queryClient.invalidateQueries({ queryKey: ["users"] });
         },
     });
 
-    function handleSubmit(role) {
-        mutate({ id: v4(), ...role });
-        router.push("/roles");
+    function handleSubmit(userInput) {
+        mutate(userInput);
+        router.push("/users");
     }
+
     return (
         <div>
             <Typography sx={{ paddingBottom: 4 }} variant="h6">
-                Roles &raquo; Create
+                Users &raquo; Create
             </Typography>
-            <RoleForm onSubmit={handleSubmit} onCancel={() => router.push("/roles")} />
+
+            <UserForm onSubmit={handleSubmit} onCancel={() => router.push("/users")} />
         </div>
     );
 }

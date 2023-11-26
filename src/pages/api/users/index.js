@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         res.status(200).json(usersWithRoles);
     } else if (req.method === "POST") {
         setTimeout(async () => {
-            const newUser = { ...req.body, id: v4() };
+            const newUser = { ...req.body, id: v4(), createdAt: new Date().toISOString() };
             await db.put("users", [...users, newUser]);
             res.status(200).json(newUser);
         }, 2000);

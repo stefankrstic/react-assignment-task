@@ -1,6 +1,6 @@
 "use client";
 
-import { updateRole, getRole } from "@/api";
+import { getRole, saveRole } from "@/api";
 import { Typography } from "@mui/material";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ export default function Edits({ role }) {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation({
-        mutationFn: updateRole,
+        mutationFn: saveRole,
         onMutate: async (updatedRole) => {
             const state = queryClient.getQueryData(["roles"]);
 

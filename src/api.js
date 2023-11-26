@@ -14,7 +14,11 @@ export async function getRole(id) {
     return data;
 }
 
-export async function createRole(role) {
+export async function saveRole(role) {
+    if (role.id) {
+        const { data } = await api.patch(`/roles/${role.id}`, role);
+        return data;
+    }
     const { data } = await api.post("/roles", role);
     return data;
 }
@@ -31,5 +35,14 @@ export async function getUsers() {
 
 export async function getUser(id) {
     const { data } = await api.get(`/users/${id}`);
+    return data;
+}
+
+export async function saveUser(user) {
+    if (user.id) {
+        const { data } = await api.patch(`/users/${user.id}`, user);
+        return data;
+    }
+    const { data } = await api.post("/users", user);
     return data;
 }

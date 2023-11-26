@@ -38,6 +38,7 @@ export default function Home({ users }) {
                     pageSizeOptions={10}
                     paginationModel={paginationModael}
                     onPaginationModelChange={(state) => setPaginationModel(state)}
+                    columnVisibilityModel={{ createdAt: false }}
                     columns={[
                         {
                             field: "firstName",
@@ -56,8 +57,15 @@ export default function Home({ users }) {
                             renderCell: (params) => params.row.role.name,
                         },
                         {
+                            field: "createdAt",
+                            headerName: "Created At",
+                            hide: true,
+                        },
+                        {
                             field: "actions",
                             headerName: "",
+                            disableColumnMenu: true,
+                            sortable: false,
                             renderCell: ({ id }) => (
                                 <Box>
                                     <Link href={`/users/${id}/edit`}>

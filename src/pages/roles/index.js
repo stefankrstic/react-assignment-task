@@ -47,6 +47,8 @@ export default function Home({ roles }) {
                         {
                             field: "actions",
                             headerName: "",
+                            disableColumnMenu: true,
+                            sortable: false,
                             renderCell: ({ id }) => (
                                 <Box>
                                     <Link href={`/roles/${id}/edit`}>
