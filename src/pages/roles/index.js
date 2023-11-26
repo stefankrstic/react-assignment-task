@@ -1,11 +1,19 @@
-import { api } from "@/api";
+import { getRoles } from "@/api";
 import Head from "next/head";
 import { DataGrid } from "@mui/x-data-grid";
 import { Typography, Fab, Box, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Home({ roles }) {
+    const { data } = useQuery({
+        queryKey: ["roles"],
+        initialData: roles,
+        queryFn: getRoles,
+        keepPreviousData: true,
+    });
+
     return (
         <>
             <Head>
@@ -20,7 +28,7 @@ export default function Home({ roles }) {
                     Roles
                 </Typography>
                 <DataGrid
-                    rows={Object.values(roles)}
+                    rows={data}
                     initialState={{
                         sorting: {
                             sortModel: [{ field: "name", sort: "asc" }],
@@ -28,10 +36,10 @@ export default function Home({ roles }) {
                     }}
                     // autosizeOptions={{ columns: ["description"] }}
                     columns={[
-                        {
-                            field: "id",
-                            headerName: "ID",
-                        },
+                        // {
+                        //     field: "id",
+                        //     headerName: "ID",
+                        // },
                         {
                             field: "name",
                             headerName: "Role",
@@ -65,7 +73,6 @@ export default function Home({ roles }) {
     );
 }
 
-export const getServerSideProps = async (context) => {
-    const { data } = await api.get("/roles");
-    return { props: { roles: data } };
+export const getServerSideProps = async () => {
+    return { props: { roles: await getRoles() } };
 };

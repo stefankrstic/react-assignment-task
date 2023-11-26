@@ -3,13 +3,33 @@
 import { Typography } from "@mui/material";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
-import { api } from "@/api";
+import { createRole } from "@/api";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { v4 } from "uuid";
 
 export default function Create() {
     const router = useRouter();
-    async function handleSubmit(role) {
-        const { data } = await api.post("/roles", role);
-        console.log(data);
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: createRole,
+        onMutate: async (newRole) => {
+            await queryClient.cancelQueries({ queryKey: ["roles"] });
+            const previousRoles = queryClient.getQueryData(["roles"]);
+            const optimisticRole = { id: v4(), ...newRole };
+            queryClient.setQueryData(["roles"], (old) => [...old, optimisticRole]);
+            return { previousRoles };
+        },
+        onError: (err, newRole, context) => {
+            queryClient.setQueryData(["roles"], context.previousRoles);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["roles"] });
+        },
+    });
+
+    function handleSubmit(role) {
+        mutate(role);
         router.push("/roles");
     }
     return (
