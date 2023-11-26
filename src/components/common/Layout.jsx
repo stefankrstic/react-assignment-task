@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, Button, Container } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -33,7 +33,9 @@ export const Layout = ({ children }) => {
                 </Toolbar>
             </AppBar>
 
-            <Box sx={{ padding: 8 }}>{children}</Box>
+            <Box sx={{ padding: 4 }}>
+                <Container>{children}</Container>
+            </Box>
         </>
     );
 };
