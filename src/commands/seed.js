@@ -5,15 +5,23 @@ const { open } = require("lmdb");
 const db = open({ path: "db" });
 
 // Roles
-const roles = [];
-
-for (let i = 0; i < 10; i++) {
-    roles.push({
+const roles = [
+    {
         id: v4(),
-        name: faker.person.jobTitle().substring(0, 16),
-        description: faker.person.jobDescriptor().substring(0, 50),
-    });
-}
+        name: "Developer",
+        description: "Responsible for coding",
+    },
+    {
+        id: v4(),
+        name: "Manager",
+        description: "Oversees a team or department",
+    },
+    {
+        id: v4(),
+        name: "Sales",
+        description: "Engages in selling products or services",
+    },
+];
 
 db.put("roles", roles);
 
@@ -21,10 +29,10 @@ db.put("roles", roles);
 const users = [];
 
 for (let i = 0; i < 25; i++) {
-    roles.push({
+    users.push({
         id: v4(),
         firstName: faker.person.firstName().substring(0, 20),
-        lastName: faker.person.firstName().substring(0, 20),
+        lastName: faker.person.lastName().substring(0, 20),
         email: faker.internet.email(),
         role: faker.helpers.arrayElement(roles).id,
     });
