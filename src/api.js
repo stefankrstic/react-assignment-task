@@ -28,3 +28,8 @@ export async function getUsers() {
     const { data } = await api.get("/users");
     return data;
 }
+
+export async function getUser(id) {
+    const { data } = await api.get(`/users/${id}`);
+    return data;
+}

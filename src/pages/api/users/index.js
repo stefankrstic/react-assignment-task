@@ -5,7 +5,9 @@ export default async function handler(req, res) {
     const users = (await db.get("users")) ?? [];
 
     if (req.method === "GET") {
-        res.status(200).json(users);
+        const roles = (await db.get("roles")) ?? [];
+        const usersWithRoles = users.map((user) => ({ ...user, role: roles.find((role) => role.id === user.role) }));
+        res.status(200).json(usersWithRoles);
     } else if (req.method === "POST") {
         setTimeout(async () => {
             const newUser = { ...req.body, id: v4() };

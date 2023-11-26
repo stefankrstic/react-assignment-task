@@ -35,6 +35,7 @@ for (let i = 0; i < 25; i++) {
         lastName: faker.person.lastName().substring(0, 20),
         email: faker.internet.email(),
         role: faker.helpers.arrayElement(roles).id,
+        createdAt: faker.date.past({ years: 1 }).toISOString(),
     });
 }
 
