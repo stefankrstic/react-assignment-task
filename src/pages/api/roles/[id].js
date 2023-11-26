@@ -4,18 +4,30 @@ export default async function handler(req, res) {
     const roles = (await db.get("roles")) ?? [];
     const role = roles.find((role) => role.id === req.query.id);
 
+    // Endpoint for getting a role by ID
     if (req.method === "GET") {
         res.status(200).json(role);
-    } else if (req.method === "PATCH") {
+
+        return;
+    }
+
+    // Endpoint for updating a role
+    if (req.method === "PATCH") {
+        // Using `setTimeout` to simulate long API operation
         setTimeout(async () => {
             const updatedRole = { ...role, ...req.body };
+
+            // Persist the changes to DB
             await db.put(
                 "roles",
-                roles.map((role) => {
-                    return role.id === updatedRole.id ? updatedRole : role;
-                }),
+                roles.map((role) => (role.id === updatedRole.id ? updatedRole : role)),
             );
-            return res.status(200).json(updatedRole);
+
+            res.status(200).json(updatedRole);
         }, 2000);
+
+        return;
     }
+
+    res.status(404).json({ error: "Not found" });
 }
