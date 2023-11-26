@@ -11,7 +11,6 @@ export default function Home({ roles }) {
         queryKey: ["roles"],
         initialData: roles,
         queryFn: getRoles,
-        keepPreviousData: true,
     });
 
     return (
@@ -36,10 +35,6 @@ export default function Home({ roles }) {
                     }}
                     // autosizeOptions={{ columns: ["description"] }}
                     columns={[
-                        // {
-                        //     field: "id",
-                        //     headerName: "ID",
-                        // },
                         {
                             field: "name",
                             headerName: "Role",

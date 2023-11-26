@@ -14,14 +14,12 @@ export default function Create() {
     const { mutate } = useMutation({
         mutationFn: createRole,
         onMutate: async (newRole) => {
-            await queryClient.cancelQueries({ queryKey: ["roles"] });
-            const previousRoles = queryClient.getQueryData(["roles"]);
-            const optimisticRole = { id: v4(), ...newRole };
-            queryClient.setQueryData(["roles"], (old) => [...old, optimisticRole]);
-            return { previousRoles };
+            const state = queryClient.getQueryData(["roles"]);
+            queryClient.setQueryData(["roles"], (state) => [...state, newRole]);
+            return { state };
         },
-        onError: (err, newRole, context) => {
-            queryClient.setQueryData(["roles"], context.previousRoles);
+        onError: (error, newRole, { state }) => {
+            queryClient.setQueryData(["roles"], state);
         },
         onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ["roles"] });
@@ -29,7 +27,7 @@ export default function Create() {
     });
 
     function handleSubmit(role) {
-        mutate(role);
+        mutate({ id: v4(), ...role });
         router.push("/roles");
     }
     return (
