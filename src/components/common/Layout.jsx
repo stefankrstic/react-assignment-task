@@ -2,6 +2,10 @@ import { AppBar, Toolbar, Typography, Box, Button, Container } from "@mui/materi
 import Head from "next/head";
 import Link from "next/link";
 
+/**
+ * Main app layout.
+ */
+
 export const Layout = ({ children }) => {
     return (
         <>
