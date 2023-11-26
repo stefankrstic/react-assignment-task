@@ -1,8 +1,8 @@
 import { getRoles } from "@/api";
+import { FabLink } from "@/components/common/FabLink";
 import { Header } from "@/components/common/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { Fab, Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 
@@ -49,11 +49,7 @@ export default function Home({ roles }) {
                         },
                     ]}
                 />
-                <Link href="/roles/create">
-                    <Fab sx={{ position: "fixed", right: 16, bottom: 16 }} color="primary">
-                        <Add />
-                    </Fab>
-                </Link>
+                <FabLink href="/roles/create" />
             </main>
         </>
     );

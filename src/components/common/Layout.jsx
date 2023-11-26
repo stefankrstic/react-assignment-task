@@ -14,7 +14,7 @@ export const Layout = ({ children }) => {
 
             <AppBar position="static" component="nav">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         React Assignment Task
                     </Typography>
                     <Box>

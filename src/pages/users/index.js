@@ -1,8 +1,8 @@
 import { getUsers } from "@/api";
+import { FabLink } from "@/components/common/FabLink";
 import { Header } from "@/components/common/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { Fab, Box, Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -65,11 +65,7 @@ export default function Home({ users }) {
                         },
                     ]}
                 />
-                <Link href="/users/create">
-                    <Fab sx={{ position: "fixed", right: 16, bottom: 16 }} color="primary">
-                        <Add />
-                    </Fab>
-                </Link>
+                <FabLink href="/users/create" />
             </main>
         </>
     );
