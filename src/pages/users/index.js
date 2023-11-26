@@ -1,14 +1,12 @@
 import { getUsers } from "@/api";
+import { BaseDataGrid } from "@/components/common/BaseDataGrid";
 import { FabLink } from "@/components/common/FabLink";
 import { Header } from "@/components/common/Header";
-import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
 export default function Home({ users }) {
-    const [paginationModel, setPaginationModel] = useState({ pageSize: 10, page: 0 });
     const { data } = useQuery({
         queryKey: ["users"],
         initialData: users,
@@ -19,16 +17,9 @@ export default function Home({ users }) {
         <>
             <main>
                 <Header>Users</Header>
-                <DataGrid
+                <BaseDataGrid
                     rows={data}
-                    initialState={{
-                        sorting: {
-                            sortModel: [{ field: "createdAt", sort: "desc" }],
-                        },
-                    }}
-                    paginationModel={paginationModel}
-                    pageSizeOptions={[10]}
-                    onPaginationModelChange={(state) => setPaginationModel(state)}
+                    initialState={{ sorting: { sortModel: [{ field: "createdAt", sort: "desc" }] } }}
                     columnVisibilityModel={{ createdAt: false }}
                     columns={[
                         {

@@ -1,7 +1,7 @@
 import { getRoles } from "@/api";
+import { BaseDataGrid } from "@/components/common/BaseDataGrid";
 import { FabLink } from "@/components/common/FabLink";
 import { Header } from "@/components/common/Header";
-import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -17,14 +17,9 @@ export default function Home({ roles }) {
         <>
             <main>
                 <Header>Roles</Header>
-                <DataGrid
+                <BaseDataGrid
                     rows={data}
-                    initialState={{
-                        sorting: {
-                            sortModel: [{ field: "name", sort: "asc" }],
-                        },
-                    }}
-                    autosizeOptions={{ columns: ["name", "description"] }}
+                    initialState={{ sorting: { sortModel: [{ field: "name", sort: "asc" }] } }}
                     columns={[
                         {
                             field: "name",
@@ -34,7 +29,7 @@ export default function Home({ roles }) {
                         {
                             field: "description",
                             headerName: "Description",
-                            width: 1000,
+                            width: 300,
                         },
                         {
                             field: "actions",
