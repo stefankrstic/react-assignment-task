@@ -9,8 +9,18 @@ export async function getRoles() {
     return data;
 }
 
+export async function getRole(id) {
+    const { data } = await api.get(`/roles/${id}`);
+    return data;
+}
+
 export async function createRole(role) {
     const { data } = await api.post("/roles", role);
+    return data;
+}
+
+export async function updateRole(role) {
+    const { data } = await api.patch(`/roles/${role.id}`, role);
     return data;
 }
 

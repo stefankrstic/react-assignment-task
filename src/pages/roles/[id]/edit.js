@@ -1,14 +1,39 @@
 "use client";
 
-import { api } from "@/api";
+import { api, updateRole, getRole } from "@/api";
 import { Typography } from "@mui/material";
 import { RoleForm } from "@/components/roles/RoleForm";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function Edits({ role }) {
     const router = useRouter();
+    const queryClient = useQueryClient();
+
+    const { mutate } = useMutation({
+        mutationFn: updateRole,
+        onMutate: async (updatedRole) => {
+            const state = queryClient.getQueryData(["roles"]);
+
+            queryClient.setQueryData(["roles"], (state) => {
+                return state.map((role) => {
+                    return role.id === updatedRole.id ? updatedRole : role;
+                });
+            });
+
+            return { state };
+        },
+        onError: (error, updatedRole, { state }) => {
+            queryClient.setQueryData(["roles"], state);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({ queryKey: ["roles"] });
+        },
+    });
+
     function handleSubmit(role) {
-        console.log(role); //TODO
+        mutate(role);
+        router.push("/roles");
     }
     return (
         <div>
@@ -21,6 +46,5 @@ export default function Edits({ role }) {
 }
 
 export const getServerSideProps = async (context) => {
-    const { data } = await api.get(`/roles/${context.query.id}`);
-    return { props: { role: data } };
+    return { props: { role: await getRole(context.query.id) } };
 };

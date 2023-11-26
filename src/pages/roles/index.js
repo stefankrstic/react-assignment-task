@@ -33,7 +33,7 @@ export default function Home({ roles }) {
                             sortModel: [{ field: "name", sort: "asc" }],
                         },
                     }}
-                    // autosizeOptions={{ columns: ["description"] }}
+                    autosizeOptions={{ columns: ["name", "description"] }}
                     columns={[
                         {
                             field: "name",
